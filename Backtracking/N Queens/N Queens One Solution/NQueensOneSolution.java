@@ -1,7 +1,6 @@
 
 public class NQueensOneSolution {
 
-    public static int count;
     public static boolean isSafe(char[][] chessBoard,int row,int column) {
         
         for(int i = row-1;i>=0;i--) {
@@ -34,7 +33,6 @@ public class NQueensOneSolution {
     }
     public static boolean nQueens(char[][] chessBoard, int row) {
         if(row == chessBoard.length) {
-            count++;
             return true;
         }
 
@@ -67,7 +65,7 @@ public class NQueensOneSolution {
 
     }
     public static void main(String[] args) {
-        int n = 20;
+        int n = 4;
         char[][] chessBoard = new char[n][n];
 
         for(int i = 0;i<n;i++) {
@@ -81,6 +79,7 @@ public class NQueensOneSolution {
         } else {
             System.out.println("No Solutions Found");
         }
+
 
     }   
 }
