@@ -239,14 +239,20 @@ public class LinkedList {
     public void removeCycle() {
         Node slow = head;
         Node fast = head;
-
+        boolean cycle = false;
         while(fast!=null && fast.next!=null) {
             slow = slow.next;
             fast = fast.next.next;
 
-            if(slow==fast) break;
+            if(slow==fast) {
+                cycle = true;
+                break;
+            }
         }
-
+        if(!cycle) {
+            return;
+        }
+        
         Node prev=null;
         slow=head;
         while (slow!=fast) {

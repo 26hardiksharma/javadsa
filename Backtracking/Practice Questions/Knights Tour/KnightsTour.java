@@ -46,7 +46,7 @@ public class KnightsTour {
     public static void main(String[] args) {
         int n = 8;
         int board[][] = new int[n][n];
-        if(!knightsTour(board,0,0)){
+        if(!knightsTour(board,7,7)){
             System.out.println("No Solution Found.");
         };
 
