@@ -1,23 +1,7 @@
-import javax.annotation.processing.SupportedSourceVersion;
+public class LinkedList {    
 
-public class LinkedList {
-
-
-    public static class  Node {
-        int data;
-        Node next;
-
-        public Node(int data) {
-            this.data = data;
-            this.next = null;
-            size++;
-        }
-        
-        
-    }
-
-    public static Node head, tail;
-    public static int size;
+    public Node head, tail;
+    public int size;
 
     public void addFirst(int data) {
         
@@ -25,11 +9,13 @@ public class LinkedList {
 
         if(head == null) {
             head = tail = newNode;
+            size++;
             return;
         }
 
         newNode.next = head;
         head = newNode;
+        size++;
     }
 
     public void addLast(int data) {
@@ -37,11 +23,13 @@ public class LinkedList {
 
         if(head == null) {
             head = tail = newNode;
+            size++;
             return;
         } 
 
         tail.next = newNode;
         tail = newNode;
+        size++;
     }
 
     public void print() {
@@ -71,10 +59,11 @@ public class LinkedList {
         Node newNode = new Node(data);
         newNode.next = temp.next;
         temp.next = newNode;
+        size++;
 
     }
 
-    public static int removeFirst() {
+    public int removeFirst() {
         if(size == 0) {
             System.out.println("LL is Empty");
             return Integer.MIN_VALUE;
@@ -128,6 +117,147 @@ public class LinkedList {
         }
         return -1;
     }
+
+    public int helper(Node head,int data) {
+        if(head == null) {
+            return -1;
+        } 
+        
+        if(head.data == data) {
+            return 0;
+        }
+        
+        int idx = helper(head.next, data);
+        if(idx == -1) {
+            return idx;
+        }
+
+        return idx+1;
+
+
+    }
+
+    public void reverse() {
+        Node curr = head;
+        Node prev=null;
+        Node next;
+
+        while (curr !=null) {
+            next = curr.next;
+            curr.next=prev;
+            prev = curr;
+            curr=next;
+        }
+
+        head = prev;
+    }
+
+    public void removeNthNodeFromEnd(int n) {
+        int sz = 0;
+        Node temp = head;
+        while (temp!=null) {
+            temp = temp.next;
+            sz++;
+        }
+
+        if(n==sz) { //First Node
+            head = head.next;
+            return;
+        }
+        int i = 1;
+        int k = sz - n;
+        Node prev = head;
+        while (i<k) {
+            prev = prev.next;
+            i++;
+        }
+        prev.next = prev.next.next;
+        return;
+
+    } 
+
+    public boolean isPalindrome() {
+        if (head == null || head.next==null) {
+            return true;
+        }
+
+        Node mid = this.findMid();
+        Node prev = null;
+        Node curr = mid;
+        Node next;
+        while(curr!=null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        Node right = prev;
+        Node left = head;
+
+        while (right!=null) {
+            if(right.data != left.data) {
+                return false;
+            }
+
+            right = right.next;
+            left = left.next;
+
+        }
+
+        return true;
+    }
+
+    public boolean hasCycle() {
+        Node slow = head;
+        Node fast = head;
+
+        while(fast!=null && fast.next!=null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if(slow==fast) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public Node findMid() {
+        Node slow = head;
+        Node fast =head;
+
+        while (fast.next!=null && fast.next!=null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
+    public void removeCycle() {
+        Node slow = head;
+        Node fast = head;
+
+        while(fast!=null && fast.next!=null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if(slow==fast) break;
+        }
+
+        Node prev=null;
+        slow=head;
+        while (slow!=fast) {
+            slow = slow.next;
+            prev = fast;
+            fast = fast.next;
+        }
+
+        prev.next = null;
+    }
+
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
         ll.addFirst(1);
@@ -140,6 +270,9 @@ public class LinkedList {
         ll.removeLast();
         ll.print();
         System.out.println(ll.search(10));
+        ll.reverse();
+        ll.print();
+        System.out.println(ll.tail.data);
     }
 
 }
