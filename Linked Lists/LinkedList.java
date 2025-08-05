@@ -264,21 +264,70 @@ public class LinkedList {
         prev.next = null;
     }
 
+    public static Node getMid(Node head) {
+        Node slow = head;
+        Node fast = head.next;
+        while (fast!=null && fast.next !=null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+        }
+
+        return slow;
+    }
+
+    public void zigZag() {
+        Node slow = head;
+        Node fast = head.next;
+
+        while(fast!=null && fast.next !=null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+        }
+
+        Node mid =slow;
+
+        Node curr = mid.next;
+        mid.next = null;
+
+        Node prev = null;
+        Node next;
+
+        while(curr!=null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        Node left = head;
+        Node right = prev;
+
+        Node nextLeft,nextRight;
+
+        while(left!=null && right!=null) {
+            nextLeft = left.next;
+            left.next = right;
+            nextRight = right.next;
+            right.next = nextLeft;
+
+            left = nextLeft;
+            right = nextRight;
+        }
+    }
+
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
         ll.addFirst(1);
-        ll.addFirst(2);
+        ll.addLast(2);
         ll.addLast(3);
-        ll.print();
-        ll.add(2, 10);
+        ll.addLast(4);
+        ll.addLast(5);
         ll.print();
         System.out.println(ll.size);
-        ll.removeLast();
+        ll.zigZag();
         ll.print();
-        System.out.println(ll.search(10));
-        ll.reverse();
-        ll.print();
-        System.out.println(ll.tail.data);
     }
 
 }
