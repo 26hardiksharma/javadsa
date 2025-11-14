@@ -11,5 +11,7 @@ public class Main {
         System.out.println();
         System.out.println(BST.search(root, 7));
         System.out.println(BST.search(root, 8));
+        root = BST.delete(root, 1);
+        BST.inorder(root);
     }
 }
