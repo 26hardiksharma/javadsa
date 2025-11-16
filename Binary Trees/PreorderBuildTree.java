@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class PreorderBuildTree {
     static class Node{
         int data;
@@ -37,17 +40,42 @@ public class PreorderBuildTree {
 
     public static void inOrderTraversal(Node root ) {
         if(root == null) return;
-        preOrderTraversal(root.left);
+        inOrderTraversal(root.left);
         System.out.println(root.data+ " ");
-        preOrderTraversal(root.right);
+        inOrderTraversal(root.right);
     }
 
     public static void postOrderTraversal(Node root ) {
         if(root == null) return;
-        preOrderTraversal(root.left);
-        preOrderTraversal(root.right);
+        postOrderTraversal(root.left);
+        postOrderTraversal(root.right);
         System.out.println(root.data+ " ");
         
+    }
+
+    public static void levelOrderTraversal(Node root ) {
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        q.add(null);
+        while(!q.isEmpty()) {
+            if(q.peek() == null) {
+                q.remove();
+                System.out.println();
+                if(!q.isEmpty()) {
+                    q.add(null);
+                } else break;
+            } else {
+                Node k = q.remove();
+                System.out.print(k.data + " ");
+                if(k.left != null) {
+                    q.add(k.left);
+                }
+
+                if(k.right!=null) {
+                    q.add(k.right);
+                }
+            }
+        }
     }
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
@@ -58,5 +86,7 @@ public class PreorderBuildTree {
         postOrderTraversal(root);
 
         inOrderTraversal(root);
+        System.out.println();
+        levelOrderTraversal(root);
     }
 }
