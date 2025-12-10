@@ -4,7 +4,7 @@ import java.util.Queue;
 import java.util.Stack;
 
 
-public class Edge {
+public class Edge implements Comparable<Edge>{
     
     int src;
     int dest;
@@ -14,6 +14,9 @@ public class Edge {
         this.src = s;
         this.dest = d;
         this.weight = w;
+    }
+    public int compareTo(Edge x) {
+        return Integer.compare(weight, x.weight);
     }
 
     public static void bfs(ArrayList<Edge>[] graph) { // O(V+E)
