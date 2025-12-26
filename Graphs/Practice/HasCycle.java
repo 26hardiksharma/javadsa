@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class HasCycle {
 
     public boolean hasCycle(ArrayList<Edge> edges,int V) {
-        DisjointSet set = new DisjointSet(v);
+        DisjointSet set = new DisjointSet(V);
         for (Edge edge : edges) {
             int a = edge.src;
             int b = edge.dest;
